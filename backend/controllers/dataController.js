@@ -1,17 +1,5 @@
 import mongoose from "mongoose";
-const CrudSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-});
-
-const CurlModel = mongoose.model("user", CrudSchema);
+import {CurlModel} from "../models/dataModel.js"
 
 
 export async function fetchData(req, res){
