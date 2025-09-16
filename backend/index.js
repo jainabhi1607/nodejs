@@ -9,7 +9,8 @@ app.use(express.json());
 
 await connectToDB();
 
-const corsOptions = { origin: "http://localhost:5173" };
+const corsOptions = { origin: "http://localhost:5173/" };
+app.use(cors());
 app.use("/data", dataRouter);
 
 const port = 4000;//process.env.PORT;

@@ -12,12 +12,16 @@ export async function fetchData(req, res){
 
 }
 export async function addData(req, res){
-    const { name, email } = req.body;
+   try { const { name, email } = req.body;
   const dataToAdd = new CurlModel({ name, email });
   await dataToAdd.save();
   res
     .status(201)
     .json({ message: "Data added successfully", newRecord: dataToAdd });
+}
+catch(err){
+  res.status(400).json({ error: err.message });
+}
 }
 export async function editData(req, res){
      try {
