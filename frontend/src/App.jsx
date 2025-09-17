@@ -16,6 +16,10 @@ const router = createBrowserRouter([
         path: "/addUser",
         element: <AddUser />,
       },
+      {
+        path: "/editUser/$1",
+        element: <AddUser />,
+      },
     ]
   }
 ]);
