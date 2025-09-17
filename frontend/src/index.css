@@ -1,3 +1,8 @@
+#root {
+  margin-left: auto;
+  width: 1200px;
+  margin-right: auto;
+}
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

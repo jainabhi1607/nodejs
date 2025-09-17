@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import First from './components/First.jsx';
 import AddUser from './pages/AddUser';
+import Users from './pages/Users';
 
 const router = createBrowserRouter([
   {
@@ -9,8 +10,12 @@ const router = createBrowserRouter([
     children : [
       {
         index: true,
+        element: <Users />,
+      },
+      {
+        path: "/addUser",
         element: <AddUser />,
-      }
+      },
     ]
   }
 ]);
