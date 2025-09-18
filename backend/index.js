@@ -3,6 +3,7 @@ import cors from "cors";
 import "dotenv/config";
 import { connectToDB } from "./config/db.js";
 import dataRouter from "./routes/dataRoutes.js";
+import authRouter from "./routes/authRoutes.js";
 const app = express();
 app.use(express.json());
 
@@ -11,6 +12,7 @@ await connectToDB();
 const corsOptions = { origin: "http://localhost:5173/" };
 app.use(cors());
 app.use("/data", dataRouter);
+app.use("/auth", authRouter);
 
 const port = 4000;//process.env.PORT;
 console.log("Port:",port)
