@@ -2,18 +2,25 @@ import express from "express";
 import cors from "cors";
 import "dotenv/config";
 import { connectToDB } from "./config/db.js";
+import cookieParser from 'cookie-parser';
 import dataRouter from "./routes/dataRoutes.js";
 import authRouter from "./routes/authRoutes.js";
+
 const app = express();
 app.use(express.json());
 
 await connectToDB();
 
-const corsOptions = { origin: "http://localhost:5173/" };
-app.use(cors());
+const corsOptions = {
+  origin: "http://localhost:5173",
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+};
+app.use(cors(corsOptions));
+app.use(cookieParser()); // ✅ Add this line
 app.use("/data", dataRouter);
 app.use("/auth", authRouter);
 
-const port = 4000;//process.env.PORT;
-console.log("Port:",port)
+const port = 4000; //process.env.PORT;
+console.log("Port:", port);
 app.listen(port, () => console.log("Server start at port", port));

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function Login() {
   const [error, setError] = useState("");
@@ -8,6 +8,8 @@ function Login() {
     username: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -18,11 +20,14 @@ function Login() {
     try {
       const response = await axios.post(
         "http://localhost:4000/auth/login",
-        data
+        data,
+      {
+        withCredentials: true, // ✅ This is required for cookies
+      }
       );
       console.log(response);
       if (response.status == "200") {
-        Navigate("/");
+        navigate("/");
       } else {
         setError(response.error);
       }
