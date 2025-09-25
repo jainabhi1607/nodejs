@@ -46,11 +46,25 @@ export async function register(req, res) {
 }
 
 export function authCheck(req, res) {
-  console.log(req.cookies);             // <-- plural
-  console.log(req.cookies?.authToken);
+  
   if (req.cookies?.authToken) {
     res.status(200).json({ message: "User is authenticated" });
   } else {
     res.status(401).json({ error: "User is not authenticated" });
+  }
+}
+export function logout(req, res) {
+  res.cookie("authToken", '', {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      maxAge: 0,
+    });
+    
+  if (req.cookies?.authToken) {
+    res.status(401).json({ error: "User can't logout" });
+  } else {
+    
+    res.status(200).json({ message: "User logout" });
   }
 }

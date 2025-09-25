@@ -5,6 +5,7 @@ import Users from "./pages/Users";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
+import Logout from "./pages/Logout.jsx";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/logout",
+        element: <Logout />,
       },
     ],
   },
