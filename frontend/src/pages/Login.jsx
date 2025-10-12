@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext"; 
 
 function Login() {
   const [error, setError] = useState("");
@@ -10,6 +11,7 @@ function Login() {
   });
 
   const navigate = useNavigate();
+  const {checkUserStatus} = useAuth();
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -27,6 +29,7 @@ function Login() {
       );
       console.log(response);
       if (response.status == "200") {
+        checkUserStatus();
         navigate("/");
       } else {
         setError(response.error);

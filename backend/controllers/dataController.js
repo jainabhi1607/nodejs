@@ -12,8 +12,9 @@ export async function fetchData(req, res){
 
 }
 export async function addData(req, res){
-   try { const { name, email } = req.body;
-  const dataToAdd = new CurlModel({ name, email });
+   try { const { name, email,phone } = req.body;
+  const dataToAdd = new CurlModel({ name, email,phone, image: req.file.path });
+
   await dataToAdd.save();
   res
     .status(201)
@@ -22,6 +23,15 @@ export async function addData(req, res){
 catch(err){
   res.status(400).json({ error: err.message });
 }
+}
+export async function fetchSingleData(req, res){
+    try {
+    const data = await CurlModel.findById(req.params.id);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: "Error in fetching data", error: error });
+  }
+
 }
 export async function editData(req, res){
      try {
@@ -39,9 +49,15 @@ export async function editData(req, res){
 }
 export async function deleteData(req, res){
    try{
-    const deleteUser = await CurlModel.findByIdAndDelete(req.params.id)
-    if(!deleteUser) {return res.status(400).json({error: "User not found"})}
-    res.json({message:"User deleted", deleteUser})
+    if (req.cookies?.authToken) {
+      const deleteUser = await CurlModel.findByIdAndDelete(req.params.id)
+      if(!deleteUser) {return res.status(400).json({error: "User not found"})}
+      res.json({message:"User deleted", deleteUser})
+  } else {
+    res.status(401).json({ error: "User is not authenticated" });
+  }
+
+    
   }
   catch(err){
     res.status(400).json({error: err.message})

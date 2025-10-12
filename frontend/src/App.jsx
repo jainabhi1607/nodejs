@@ -6,6 +6,8 @@ import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 import Logout from "./pages/Logout.jsx";
+import AuthProvider from "./context/AuthContext.jsx";
+import EditUser from "./pages/EditUser.jsx";
 
 const router = createBrowserRouter([
   {
@@ -22,11 +24,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/addUser",
-        element: <AddUser />,
+        element: (
+          <ProtectedRoute>
+            <AddUser />
+          </ProtectedRoute>
+        ),
       },
       {
-        path: "/editUser/$id",
-        element: <AddUser />,
+        path: "/editUser/:id",
+        element: (
+          <ProtectedRoute>
+            <EditUser />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/login",
@@ -47,7 +57,8 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
+      
+          <AuthProvider><RouterProvider router={router} /></AuthProvider>
     </>
   );
 }

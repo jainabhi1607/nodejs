@@ -20,7 +20,11 @@ function Users() {
     e.preventDefault = false;
 
     try {
-      await axios.delete("http://localhost:4000/data/delete/" + id);
+      
+      await axios.delete("http://localhost:4000/data/delete/" + id, {
+        withCredentials: true,
+        credentials: "include", 
+      });
       setResults(
         results.filter((elem, ind) => {
           return id !== elem._id;
@@ -30,8 +34,6 @@ function Users() {
       console.log(error);
     }
   }
-
-  async function editUser(e, id) {}
 
   return (
     <>
@@ -48,7 +50,7 @@ function Users() {
                   <span>{result.phone}</span>
                   <a
                     style={{ marginRight: "20px" }}
-                    onClick={(e) => editUser(e, result._id)}
+                    href={`/editUser/${result._id}`}
                   >
                     Edit
                   </a>
